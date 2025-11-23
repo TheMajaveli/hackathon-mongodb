@@ -297,38 +297,38 @@ hackathon-mongodb/
 ## ✅ Checklist par développeur
 
 ### Dev 1 Checklist
-- [ ] Configuration MongoDB et CORS
-- [ ] Structure de base (index.php, router.php)
-- [ ] CRUD Users complet
-- [ ] CRUD Categories complet
-- [ ] Endpoint : Nombre total d'utilisateurs
-- [ ] Endpoint : Pagination des pseudos (3 par page)
-- [ ] Migrations Users & Categories
-- [ ] Seeders Users & Categories
+- [x] Configuration MongoDB et CORS
+- [x] Structure de base (index.php, router.php)
+- [x] CRUD Users complet
+- [x] CRUD Categories complet
+- [x] Endpoint : Nombre total d'utilisateurs
+- [x] Endpoint : Pagination des pseudos (3 par page)
+- [x] Migrations Users & Categories
+- [x] Seeders Users & Categories
 
 ### Dev 2 Checklist
-- [ ] CRUD Posts complet
-- [ ] Endpoint : Nombre total de posts
-- [ ] Endpoint : 5 derniers posts
-- [ ] Endpoint : Posts contenant un mot clé
-- [ ] Endpoint : Posts avant une date
-- [ ] Endpoint : Posts après une date
-- [ ] Endpoint : Posts sans commentaires
-- [ ] Endpoint : Post + commentaires
-- [ ] Migration Posts
-- [ ] Seeder Posts
+- [x] CRUD Posts complet
+- [x] Endpoint : Nombre total de posts
+- [x] Endpoint : 5 derniers posts
+- [x] Endpoint : Posts contenant un mot clé
+- [x] Endpoint : Posts avant une date
+- [x] Endpoint : Posts après une date
+- [x] Endpoint : Posts sans commentaires
+- [x] Endpoint : Post + commentaires
+- [x] Migration Posts
+- [x] Seeder Posts
 
 ### Dev 3 Checklist
-- [ ] CRUD Comments complet
-- [ ] CRD Likes complet
-- [ ] CRD Follows complet
-- [ ] Endpoint : Nombre de commentaires pour un post
-- [ ] Endpoint : Nombre de follows (abonnés)
-- [ ] Endpoint : Nombre de following (personnes suivies)
-- [ ] Endpoint : Top 3 des utilisateurs les plus suivis
-- [ ] Endpoint : Moyenne des likes par catégorie
-- [ ] Migrations Comments, Likes, Follows
-- [ ] Seeders Comments, Likes, Follows
+- [x] CRUD Comments complet
+- [x] CRD Likes complet
+- [x] CRD Follows complet
+- [x] Endpoint : Nombre de commentaires pour un post
+- [x] Endpoint : Nombre de follows (abonnés)
+- [x] Endpoint : Nombre de following (personnes suivies)
+- [x] Endpoint : Top 3 des utilisateurs les plus suivis
+- [x] Endpoint : Moyenne des likes par catégorie
+- [x] Migrations Comments, Likes, Follows
+- [x] Seeders Comments, Likes, Follows
 
 ---
 
