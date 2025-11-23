@@ -27,6 +27,12 @@ class Database {
         return self::$instance;
     }
 
+    /**
+     * Get a collection by name
+     * 
+     * @param string $collectionName Name of the collection
+     * @return \MongoDB\Collection
+     */
     public function getCollection($collectionName) {
         return $this->db->selectCollection($collectionName);
     }

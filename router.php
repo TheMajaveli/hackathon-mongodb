@@ -61,7 +61,7 @@ try {
 
         case 'categories':
             $controller = new CategoryController();
-            $controller->handleRequest($method, $id);
+            $controller->handleRequest($method, $id, $action);
             break;
 
         case 'comments':
