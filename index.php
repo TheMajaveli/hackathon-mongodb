@@ -1,4 +1,5 @@
 <?php
+// Tâche Dev 1
 
 // Récupérer l'URL pour déterminer si c'est une route de vue ou API
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

@@ -1,4 +1,5 @@
 <?php
+// Tâche Dev 1
 
 // Configuration CORS
 header("Access-Control-Allow-Origin: *");

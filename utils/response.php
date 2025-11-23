@@ -1,4 +1,5 @@
 <?php
+// Tâche Dev 1
 
 class Response {
     public static function success($data = null, $message = "Succès", $statusCode = 200) {
