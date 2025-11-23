@@ -21,11 +21,13 @@ class LikeSeeder {
             return;
         }
 
-        // Créer 800 likes (certains utilisateurs peuvent liker plusieurs posts)
+        // Créer exactement 300 likes (certains utilisateurs peuvent liker plusieurs posts)
         $likesCreated = 0;
-        $maxLikes = 800;
+        $maxLikes = 300;
+        $maxAttempts = 10000; // Limite de sécurité pour éviter les boucles infinies
+        $attempts = 0;
 
-        for ($i = 0; $i < $maxLikes; $i++) {
+        while ($likesCreated < $maxLikes && $attempts < $maxAttempts) {
             // Sélectionner aléatoirement un utilisateur et un post
             $randomUserId = $userIds[array_rand($userIds)];
             $randomPostId = $postIds[array_rand($postIds)];
@@ -44,8 +46,14 @@ class LikeSeeder {
                 // Ignorer les erreurs de doublons (index unique)
                 // Continuer pour créer d'autres likes
             }
+            
+            $attempts++;
         }
 
-        echo "✓ $likesCreated likes créés.\n";
+        if ($likesCreated < $maxLikes) {
+            echo "⚠️  Seulement $likesCreated likes créés sur $maxLikes demandés (trop de doublons après $attempts tentatives).\n";
+        } else {
+            echo "✓ $likesCreated likes créés.\n";
+        }
     }
 }

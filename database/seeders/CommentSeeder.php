@@ -21,7 +21,7 @@ class CommentSeeder {
             return;
         }
 
-        // Créer 500 commentaires
+        // Créer des commentaires
         $comments = [
             'Excellent article !',
             'Je suis totalement d\'accord.',
@@ -35,7 +35,10 @@ class CommentSeeder {
             'Merci pour les conseils.'
         ];
 
-        for ($i = 1; $i <= 500; $i++) {
+        $commentsCreated = 0;
+        $maxComments = 90;
+
+        for ($i = 1; $i <= $maxComments; $i++) {
             // Sélectionner aléatoirement un utilisateur et un post
             $randomUserId = $userIds[array_rand($userIds)];
             $randomPostId = $postIds[array_rand($postIds)];
@@ -49,8 +52,9 @@ class CommentSeeder {
             ];
 
             $this->collection->insertOne($comment);
+            $commentsCreated++;
         }
 
-        echo "✓ 500 commentaires créés.\n";
+        echo "✓ $commentsCreated commentaires créés.\n";
     }
 }

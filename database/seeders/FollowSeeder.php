@@ -21,17 +21,20 @@ class FollowSeeder {
             return;
         }
 
-        // Créer 300 relations de suivi
+        // Créer exactement 250 relations de suivi
         $followsCreated = 0;
-        $maxFollows = 300;
+        $maxFollows = 250;
+        $maxAttempts = 10000; // Limite de sécurité pour éviter les boucles infinies
+        $attempts = 0;
 
-        for ($i = 0; $i < $maxFollows; $i++) {
+        while ($followsCreated < $maxFollows && $attempts < $maxAttempts) {
             // Sélectionner deux utilisateurs différents
             $followerId = $userIds[array_rand($userIds)];
             $followingId = $userIds[array_rand($userIds)];
 
             // Éviter qu'un utilisateur se suive lui-même
             if ($followerId === $followingId) {
+                $attempts++;
                 continue;
             }
 
@@ -49,8 +52,14 @@ class FollowSeeder {
                 // Ignorer les erreurs de doublons (index unique)
                 // Continuer pour créer d'autres follows
             }
+            
+            $attempts++;
         }
 
-        echo "✓ $followsCreated relations de suivi créées.\n";
+        if ($followsCreated < $maxFollows) {
+            echo "⚠️  Seulement $followsCreated relations de suivi créées sur $maxFollows demandées (trop de doublons après $attempts tentatives).\n";
+        } else {
+            echo "✓ $followsCreated relations de suivi créées.\n";
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 // Tâche Dev 1
 
+require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/UserSeeder.php';
 require_once __DIR__ . '/CategorySeeder.php';
 require_once __DIR__ . '/PostSeeder.php';
@@ -68,6 +69,27 @@ class DatabaseSeeder {
             echo "⚠️  FollowSeeder non implémenté, ignoré.\n\n";
         }
         
+        // Afficher un résumé avec les totaux réels
+        echo "========================================\n";
+        echo "  Résumé du seeding\n";
+        echo "========================================\n";
+        
+        $db = Database::getInstance();
+        
+        $usersCount = $db->getCollection('Users')->countDocuments();
+        $categoriesCount = $db->getCollection('Categories')->countDocuments();
+        $postsCount = $db->getCollection('Posts')->countDocuments();
+        $commentsCount = $db->getCollection('Comments')->countDocuments();
+        $likesCount = $db->getCollection('Likes')->countDocuments();
+        $followsCount = $db->getCollection('Follows')->countDocuments();
+        
+        echo "📊 Totaux réels dans la base de données :\n";
+        echo "   • Utilisateurs : $usersCount\n";
+        echo "   • Catégories : $categoriesCount\n";
+        echo "   • Posts : $postsCount\n";
+        echo "   • Commentaires : $commentsCount\n";
+        echo "   • Likes : $likesCount\n";
+        echo "   • Relations de suivi : $followsCount\n";
         echo "========================================\n";
         echo "  Seeding terminé avec succès !\n";
         echo "========================================\n\n";
