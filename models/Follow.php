@@ -103,4 +103,55 @@ class Follow {
             return ['success' => false, 'message' => 'ID invalide'];
         }
     }
+
+    public function getFollowingCount($userId) {
+        try {
+            $count = $this->collection->countDocuments(['follower_id' => $userId]);
+            return ['success' => true, 'data' => ['count' => $count, 'user_id' => $userId]];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Erreur lors du comptage'];
+        }
+    }
+
+    public function getFollowersCount($userId) {
+        try {
+            $count = $this->collection->countDocuments(['following_id' => $userId]);
+            return ['success' => true, 'data' => ['count' => $count, 'user_id' => $userId]];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Erreur lors du comptage'];
+        }
+    }
+
+    public function getTopThreeMostFollowed() {
+        try {
+            $pipeline = [
+                [
+                    '$group' => [
+                        '_id' => '$following_id',
+                        'followers_count' => ['$sum' => 1]
+                    ]
+                ],
+                [
+                    '$sort' => ['followers_count' => -1]
+                ],
+                [
+                    '$limit' => 3
+                ]
+            ];
+
+            $results = $this->collection->aggregate($pipeline)->toArray();
+            
+            $topThree = [];
+            foreach ($results as $result) {
+                $topThree[] = [
+                    'user_id' => $result['_id'],
+                    'followers_count' => $result['followers_count']
+                ];
+            }
+
+            return ['success' => true, 'data' => $topThree];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Erreur lors de la récupération'];
+        }
+    }
 }

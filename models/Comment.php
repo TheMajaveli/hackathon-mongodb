@@ -84,4 +84,13 @@ class Comment {
             return ['success' => false, 'message' => 'ID invalide'];
         }
     }
+
+    public function getCountByPostId($postId) {
+        try {
+            $count = $this->collection->countDocuments(['post_id' => $postId]);
+            return ['success' => true, 'data' => ['count' => $count, 'post_id' => $postId]];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Erreur lors du comptage'];
+        }
+    }
 }

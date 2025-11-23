@@ -14,7 +14,13 @@ class FollowController {
     public function handleRequest($method, $id = null, $action = null) {
         switch ($method) {
             case 'GET':
-                if ($id) {
+                if ($action === 'following-count' && isset($_GET['user_id'])) {
+                    $result = $this->follow->getFollowingCount($_GET['user_id']);
+                } elseif ($action === 'followers-count' && isset($_GET['user_id'])) {
+                    $result = $this->follow->getFollowersCount($_GET['user_id']);
+                } elseif ($action === 'top-three') {
+                    $result = $this->follow->getTopThreeMostFollowed();
+                } elseif ($id) {
                     $result = $this->follow->getById($id);
                 } else {
                     $result = $this->follow->getAll();

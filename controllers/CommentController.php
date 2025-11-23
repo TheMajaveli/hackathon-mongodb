@@ -14,7 +14,9 @@ class CommentController {
     public function handleRequest($method, $id = null, $action = null) {
         switch ($method) {
             case 'GET':
-                if ($id) {
+                if ($action === 'count' && isset($_GET['post_id'])) {
+                    $result = $this->comment->getCountByPostId($_GET['post_id']);
+                } elseif ($id) {
                     $result = $this->comment->getById($id);
                 } else {
                     $result = $this->comment->getAll();

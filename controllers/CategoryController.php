@@ -11,10 +11,12 @@ class CategoryController {
         $this->category = new Category();
     }
 
-    public function handleRequest($method, $id = null) {
+    public function handleRequest($method, $id = null, $action = null) {
         switch ($method) {
             case 'GET':
-                if ($id) {
+                if ($action === 'average' && isset($_GET['category_id'])) {
+                    $result = $this->category->getAverageLikesByCategory($_GET['category_id']);
+                } elseif ($id) {
                     $result = $this->category->getById($id);
                 } else {
                     $result = $this->category->getAll();

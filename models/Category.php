@@ -75,5 +75,46 @@ class Category {
             return ['success' => false, 'message' => 'ID invalide'];
         }
     }
+
+    public function getAverageLikesByCategory($categoryId) {
+        try {
+            $db = Database::getInstance();
+            $postsCollection = $db->getCollection('Posts');
+            $likesCollection = $db->getCollection('Likes');
+
+            // Récupérer tous les posts de cette catégorie
+            $posts = $postsCollection->find(['category_id' => (int)$categoryId])->toArray();
+            
+            if (empty($posts)) {
+                return ['success' => true, 'data' => ['average' => 0, 'category_id' => $categoryId]];
+            }
+
+            $totalLikes = 0;
+            $postsWithLikes = 0;
+
+            foreach ($posts as $post) {
+                $postId = (string)$post['_id'];
+                $likesCount = $likesCollection->countDocuments(['post_id' => $postId]);
+                $totalLikes += $likesCount;
+                if ($likesCount > 0) {
+                    $postsWithLikes++;
+                }
+            }
+
+            $average = count($posts) > 0 ? $totalLikes / count($posts) : 0;
+
+            return [
+                'success' => true,
+                'data' => [
+                    'average' => round($average, 2),
+                    'category_id' => $categoryId,
+                    'total_posts' => count($posts),
+                    'total_likes' => $totalLikes
+                ]
+            ];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => 'Erreur lors du calcul'];
+        }
+    }
 }
 
