@@ -46,15 +46,6 @@ Ce document liste tous les fichiers que chaque développeur doit modifier/créer
 - ✅ `database/seeders/DatabaseSeeder.php` - Seeder principal
 - ✅ `database/seeders/seed.php` - Script de seeding principal
 
-#### Views
-- ✅ `views.php` - Routeur pour les vues
-- ✅ `views/ViewHelper.php` - Helper pour le rendu des vues
-- ✅ `views/dashboard.php` - Page dashboard
-- ✅ `views/layout.php` - Layout principal
-- ✅ `views/user-detail.php` - Détails d'un utilisateur
-- ✅ `views/categories.php` - Liste des catégories
-- ✅ `views/category-detail.php` - Détails d'une catégorie
-
 ---
 
 ## 👨‍💻 DEV 2 — Posts & Recherche
@@ -83,10 +74,6 @@ Ce document liste tous les fichiers que chaque développeur doit modifier/créer
 
 #### Seeders
 - ✅ `database/seeders/PostSeeder.php` - Seeder Posts
-
-#### Views
-- ✅ `views/posts.php` - Liste des posts
-- ✅ `views/post-detail.php` - Détails d'un post
 
 ---
 
@@ -125,10 +112,106 @@ Ce document liste tous les fichiers que chaque développeur doit modifier/créer
 - ✅ `database/seeders/LikeSeeder.php` - Seeder Likes
 - ✅ `database/seeders/FollowSeeder.php` - Seeder Follows
 
-#### Views
-- ✅ `views/comments.php` - Liste des commentaires
-- ✅ `views/likes.php` - Liste des likes
-- ✅ `views/follows.php` - Liste des follows
+---
+
+## 📡 API Endpoints
+
+### Users (`/users`)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/users` | Liste tous les utilisateurs (paginé) |
+| GET | `/users?page=1` | Liste les utilisateurs avec pagination |
+| GET | `/users/{id}` | Récupère un utilisateur par ID |
+| GET | `/users/count` | Nombre total d'utilisateurs |
+| GET | `/users/usernames?page=1` | Liste des pseudos (3 par page) |
+| POST | `/users` | Crée un nouvel utilisateur |
+| PUT | `/users/{id}` | Met à jour un utilisateur |
+| DELETE | `/users/{id}` | Supprime un utilisateur |
+
+### Posts (`/posts`)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/posts` | Liste tous les posts |
+| GET | `/posts/{id}` | Récupère un post par ID |
+| GET | `/posts/count` | Nombre total de posts |
+| GET | `/posts/last-five` | Les 5 derniers posts |
+| GET | `/posts/without-comments` | Posts sans commentaires |
+| GET | `/posts/search?word=...` | Recherche de posts par mot |
+| GET | `/posts/before-date?date=...` | Posts avant une date |
+| GET | `/posts/after-date?date=...` | Posts après une date |
+| GET | `/posts/{id}/comments` | Post avec ses commentaires |
+| POST | `/posts` | Crée un nouveau post |
+| PUT | `/posts/{id}` | Met à jour un post |
+| DELETE | `/posts/{id}` | Supprime un post |
+
+### Categories (`/categories`)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/categories` | Liste toutes les catégories |
+| GET | `/categories/{id}` | Récupère une catégorie par ID |
+| GET | `/categories/average?category_id=...` | Moyenne des likes par catégorie |
+| POST | `/categories` | Crée une nouvelle catégorie |
+| PUT | `/categories/{id}` | Met à jour une catégorie |
+| DELETE | `/categories/{id}` | Supprime une catégorie |
+
+### Comments (`/comments`)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/comments` | Liste tous les commentaires |
+| GET | `/comments/{id}` | Récupère un commentaire par ID |
+| GET | `/comments/count?post_id=...` | Nombre de commentaires pour un post |
+| POST | `/comments` | Crée un nouveau commentaire |
+| PUT | `/comments/{id}` | Met à jour un commentaire |
+| DELETE | `/comments/{id}` | Supprime un commentaire |
+
+### Likes (`/likes`)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/likes` | Liste tous les likes |
+| GET | `/likes/{id}` | Récupère un like par ID |
+| POST | `/likes` | Crée un nouveau like |
+| DELETE | `/likes/{id}` | Supprime un like |
+
+### Follows (`/follows`)
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/follows` | Liste toutes les relations de suivi |
+| GET | `/follows/{id}` | Récupère une relation de suivi par ID |
+| GET | `/follows/following-count?user_id=...` | Nombre de personnes qu'un utilisateur suit |
+| GET | `/follows/followers-count?user_id=...` | Nombre d'abonnés d'un utilisateur |
+| GET | `/follows/top-three` | Top 3 des utilisateurs les plus suivis |
+| POST | `/follows` | Crée une nouvelle relation de suivi |
+| PUT | `/follows/{id}` | Met à jour une relation de suivi |
+| DELETE | `/follows/{id}` | Supprime une relation de suivi |
+
+---
+
+## 🗄️ Données de test (Seeders)
+
+Les seeders génèrent les données suivantes :
+
+- **Users** : 100 utilisateurs (95 actifs, 5 inactifs)
+- **Categories** : 5 catégories (Technologie, Voyage, Cuisine, Sport, Musique)
+- **Posts** : 40 posts
+- **Comments** : 90 commentaires
+- **Likes** : 300 likes (exactement)
+- **Follows** : 250 relations de suivi (exactement)
+
+**Note** : Les seeders garantissent un nombre exact de données créées. Un résumé final affiche les totaux réels dans la base de données après le seeding.
+
+### Exécution des seeders
+
+```bash
+php database/seeders/seed.php
+```
+
+Le script affichera un résumé avec les totaux réels de chaque collection.
 
 ---
 
@@ -203,23 +286,10 @@ hackathon-mongodb/
 │       ├── FollowSeeder.php    (Dev 3)
 │       ├── DatabaseSeeder.php  (Dev 1 - partagé)
 │       └── seed.php            (Dev 1 - partagé)
-├── views/
-│   ├── ViewHelper.php          (Dev 1)
-│   ├── dashboard.php           (Dev 1)
-│   ├── layout.php              (Dev 1)
-│   ├── user-detail.php         (Dev 1)
-│   ├── categories.php          (Dev 1)
-│   ├── category-detail.php     (Dev 1)
-│   ├── posts.php               (Dev 2)
-│   ├── post-detail.php         (Dev 2)
-│   ├── comments.php            (Dev 3)
-│   ├── likes.php               (Dev 3)
-│   └── follows.php             (Dev 3)
 ├── utils/
 │   └── response.php            (Dev 1)
 ├── index.php                   (Dev 1)
-├── router.php                  (Dev 1 - partagé)
-└── views.php                   (Dev 1)
+└── router.php                  (Dev 1 - partagé)
 ```
 
 ---
@@ -235,7 +305,6 @@ hackathon-mongodb/
 - [ ] Endpoint : Pagination des pseudos (3 par page)
 - [ ] Migrations Users & Categories
 - [ ] Seeders Users & Categories
-- [ ] Views pour Users & Categories
 
 ### Dev 2 Checklist
 - [ ] CRUD Posts complet
@@ -248,7 +317,6 @@ hackathon-mongodb/
 - [ ] Endpoint : Post + commentaires
 - [ ] Migration Posts
 - [ ] Seeder Posts
-- [ ] Views pour Posts
 
 ### Dev 3 Checklist
 - [ ] CRUD Comments complet
@@ -261,7 +329,6 @@ hackathon-mongodb/
 - [ ] Endpoint : Moyenne des likes par catégorie
 - [ ] Migrations Comments, Likes, Follows
 - [ ] Seeders Comments, Likes, Follows
-- [ ] Views pour Comments, Likes, Follows
 
 ---
 
